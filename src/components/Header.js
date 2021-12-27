@@ -1,11 +1,12 @@
 import React, {useContext, useState} from "react";
-import {useHistory} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import signContext from "../stores/sign-context";
 import {
   alpha, AppBar, Box, Button, InputBase, Toolbar, styled, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography,
   Divider
 } from "@mui/material";
 import {Search as SearchIcon} from "@mui/icons-material";
+import logo from "../assets/logo.png";
 
 function Header() {
   const history = useHistory();
@@ -29,6 +30,10 @@ function Header() {
     <AppBar position="static" color="success" sx={styles.header}>
       <Toolbar>
         <Box sx={styles.boxLeft}>
+          <Link to="/">
+            <img src={logo}/>
+          </Link>
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon/>

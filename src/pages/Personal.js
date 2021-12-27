@@ -1,10 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Grid} from "@mui/material";
 
 import PersonalInformation from "../components/PersonalInformation";
 import PersonalListEntries from "../components/PersonalListEntries";
 
 function Personal() {
+  useEffect(() => {
+    document.title = "Personal - Blog App"
+  }, []);
+
   return (
     <Grid container spacing={3} sx={styles.grid}>
       <Grid item xs={3.5}>
