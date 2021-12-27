@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {SignProvider} from "./stores/sign-context";
 import {SnackbarProvider} from "./stores/snackbar-context";
 
@@ -8,6 +8,7 @@ import SignUp from "./components/SignUp";
 import SnackbarMessage from "./components/SnackbarMessage";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import Personal from "./pages/Personal";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home/>
+            </Route>
+
+            <Route path="/personal">
+              {localStorage.getItem("token") ? <Personal/> : <Redirect to="/"/>}
             </Route>
           </Switch>
         </Router>

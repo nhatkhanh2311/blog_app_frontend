@@ -1,17 +1,24 @@
 import React, {useContext, useState} from "react";
+import {useHistory} from "react-router-dom";
 import signContext from "../stores/sign-context";
 import {
-  alpha, AppBar, Box, Button, InputBase, Toolbar, styled, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography
+  alpha, AppBar, Box, Button, InputBase, Toolbar, styled, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography,
+  Divider
 } from "@mui/material";
 import {Search as SearchIcon} from "@mui/icons-material";
 
 function Header() {
+  const history = useHistory();
   const signCtx = useContext(signContext);
 
   const [anchorMenu, setAnchorMenu] = useState(null);
 
   const handleOpenMenu = (e) => setAnchorMenu(e.currentTarget);
   const handleCloseMenu = () => setAnchorMenu(null);
+
+  const toPersonal = () => {
+    history.push("/personal");
+  }
 
   const signOut = () => {
     localStorage.clear();
@@ -51,8 +58,16 @@ function Header() {
             </Tooltip>
 
             <Menu open={!!anchorMenu} onClose={handleCloseMenu} anchorEl={anchorMenu}>
-              <MenuItem onClick={signOut}>
+              <MenuItem onClick={toPersonal}>
                 <Typography textAlign="center">
+                  Personal page
+                </Typography>
+              </MenuItem>
+
+              <Divider light/>
+
+              <MenuItem onClick={signOut}>
+                <Typography textAlign="center" color="red">
                   Sign out
                 </Typography>
               </MenuItem>

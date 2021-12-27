@@ -52,7 +52,7 @@ function SignIn() {
           password: password
         })
         .then((res) => {
-          localStorage.setItem("token", res.data["token"]);
+          localStorage.setItem("token", res.data.token);
           localStorage.setItem("username", username);
           window.location.reload();
         })
