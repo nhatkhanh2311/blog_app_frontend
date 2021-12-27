@@ -23,7 +23,7 @@ function CreateEntry(props) {
   }, [props.open]);
 
   const validate = () => {
-    if (title.length === 0) {
+    if (title.trim().length === 0) {
       setValidateTitle(true);
       return false;
     }
@@ -45,7 +45,7 @@ function CreateEntry(props) {
         .then((res) => {
           sbCtx.onSnackbar("Created entry successfully!", "success");
           props.disable(false);
-          props.render(true);
+          props.render();
         })
         .catch((err) => {
           sbCtx.onSnackbar("Something wrong! Please try again!", "error");

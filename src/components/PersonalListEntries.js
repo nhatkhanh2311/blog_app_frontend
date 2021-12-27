@@ -70,7 +70,7 @@ function PersonalListEntries() {
       </Fab>
 
       <Dialog open={dialog} onClose={() => setDialog(false)} fullWidth>
-        <CreateEntry disable={(value) => setDialog(value)} render={(value) => refresh()}/>
+        <CreateEntry disable={(value) => setDialog(value)} render={() => refresh()}/>
       </Dialog>
 
       {entries.map((entry) => (

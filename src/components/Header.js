@@ -31,7 +31,7 @@ function Header() {
       <Toolbar>
         <Box sx={styles.boxLeft}>
           <Link to="/">
-            <img src={logo}/>
+            <img src={logo} alt="logo"/>
           </Link>
 
           <Search>

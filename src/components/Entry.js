@@ -1,11 +1,16 @@
 import React, {useState} from "react";
 import {
-  Avatar, Button, Card, CardContent, CardHeader, CardMedia, Dialog, DialogActions, DialogContent, Typography
+  Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Dialog, DialogActions, DialogContent,
+  Typography
 } from "@mui/material";
+import {ExpandMore as ExpandMoreIcon} from "@mui/icons-material";
 import moment from "moment";
+
+import ListComments from "./ListComments";
 
 function Entry(props) {
   const [openImage, setOpenImage] = useState(false);
+  const [expandComment, setExpandComment] = useState(false);
 
   return (
     <Card sx={styles.card}>
@@ -17,7 +22,7 @@ function Entry(props) {
                  onClick={() => setOpenImage(true)}/>
 
       <CardContent>
-        <Typography textAlign="center" fontWeight="bold">
+        <Typography textAlign="center" fontWeight="bold" fontSize={20} mb={1}>
           {props.data.title}
         </Typography>
 
@@ -25,6 +30,17 @@ function Entry(props) {
           {props.data.body}
         </Typography>
       </CardContent>
+
+      <CardActions>
+        <Button color="inherit" onClick={() => setExpandComment(!expandComment)}>
+          comments
+          <ExpandMoreIcon sx={expandComment ? styles.expandOn : {}}/>
+        </Button>
+      </CardActions>
+
+      <Collapse in={expandComment}>
+        <ListComments entryId={props.data.id}/>
+      </Collapse>
 
       <Dialog open={openImage} onClose={() => setOpenImage(false)} fullWidth>
         <DialogContent>
@@ -48,5 +64,8 @@ const styles = {
   },
   title: {
     fontWeight: "bold"
+  },
+  expandOn: {
+    transform: "rotate(180deg)"
   }
 }
