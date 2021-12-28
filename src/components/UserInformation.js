@@ -2,17 +2,20 @@ import React, {useContext, useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "../stores/axios";
 import snackbarContext from "../stores/snackbar-context";
-import {Avatar, Box, Card, Grid, Typography} from "@mui/material";
+import {Avatar, Box, Button, Card, Grid, Typography} from "@mui/material";
+import {AddBox as AddBoxIcon} from "@mui/icons-material";
 
-function UserInformation() {
+function UserInformation(props) {
   const sbCtx = useContext(snackbarContext);
   const {username} = useParams();
 
+  const [id, setId] = useState(0);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState(new Date());
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
+  const [followed, setFollowed] = useState(false);
 
   useEffect(() => {
     getData();
@@ -22,15 +25,38 @@ function UserInformation() {
     axios
       .get(`/user?username=${username}`)
       .then((res) => {
-        setName(res.data.name);
-        setEmail(res.data.email);
-        setBirthday(new Date(res.data.birthday));
-        setPhone(res.data.phone);
-        setGender(res.data.gender === 1 ? "Male" : res.data.gender === 0 ? "Female" : "Other");
+        setId(res.data.user.id);
+        setName(res.data.user.name);
+        setEmail(res.data.user.email);
+        setBirthday(new Date(res.data.user.birthday));
+        setPhone(res.data.user.phone);
+        setGender(res.data.user.gender === 1 ? "Male" : res.data.user.gender === 0 ? "Female" : "Other");
+        setFollowed(res.data.followed);
       })
       .catch((err) => {
         sbCtx.onSnackbar("Something wrong! Please try again!", "error");
       });
+  }
+
+  const follow = () => {
+    if (localStorage.getItem("token")) {
+      setFollowed(true);
+      axios
+        .post("/follow", {
+          followed_id: id
+        })
+        .then((res) => {
+          sbCtx.onSnackbar("Followed successfully!", "success");
+          props.render();
+        })
+        .catch((err) => {
+          sbCtx.onSnackbar("Something wrong! Please try again!", "error");
+          setFollowed(false);
+        });
+    }
+    else {
+      sbCtx.onSnackbar("You must sign in to follow!", "warning");
+    }
   }
 
   return (
@@ -42,6 +68,12 @@ function UserInformation() {
       <Typography textAlign="center" fontWeight="bold" fontSize={30} my={2}>
         {name}
       </Typography>
+
+      <Box sx={styles.follow}>
+        <Button disabled={followed} variant="contained" startIcon={<AddBoxIcon/>} onClick={follow}>
+          {followed ? "followed" : "follow"}
+        </Button>
+      </Box>
 
       <Grid container spacing={2} mx={1} mt={1}>
         <Grid item xs={4}>
@@ -99,5 +131,9 @@ const styles = {
     width: 200,
     mx: "auto",
     my: 2
+  },
+  follow: {
+    display: "flex",
+    justifyContent: "center"
   }
 }

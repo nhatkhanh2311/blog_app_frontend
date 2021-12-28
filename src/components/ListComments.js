@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import axios from "../stores/axios";
 import snackbarContext from "../stores/snackbar-context";
 import {Avatar, CardContent, CardHeader, Divider, Typography} from "@mui/material";
@@ -36,8 +37,12 @@ function ListComments(props) {
         <>
           <Divider/>
 
-          <CardHeader avatar={<Avatar src="" sx={styles.avatar}/>}
-                      title={<Typography sx={styles.title}>{comment.name}</Typography>}
+          <CardHeader avatar={<Avatar sx={styles.avatar} src="" component={Link} to={`/user/${comment.username}`}/>}
+                      title={
+                        <Typography sx={styles.title} component={Link} to={`/user/${comment.username}`}>
+                          {comment.name}
+                        </Typography>
+                      }
                       subheader={<Typography sx={styles.sub}>{moment(comment.created_at).fromNow()}</Typography>}
                       sx={styles.header}/>
 
@@ -51,7 +56,9 @@ function ListComments(props) {
 
       <Divider/>
 
-      <CreateComment entryId={props.entryId} render={() => refresh()}/>
+      {localStorage.getItem("token") &&
+        <CreateComment entryId={props.entryId} render={() => refresh()}/>
+      }
     </>
   );
 }
@@ -65,13 +72,14 @@ const styles = {
   },
   title: {
     fontWeight: "bold",
-    fontSize: 14
+    fontSize: 14,
+    textDecoration: "none"
   },
   avatar: {
     width: 30,
     height: 30
   },
   sub: {
-    fontSize: 14
+    fontSize: 13
   }
 }

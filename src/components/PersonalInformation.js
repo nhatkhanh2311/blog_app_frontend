@@ -6,6 +6,7 @@ import {Avatar, Box, Card, Grid, Typography} from "@mui/material";
 function PersonalInformation() {
   const sbCtx = useContext(snackbarContext);
 
+  const [id, setId] = useState(0);
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,12 +22,13 @@ function PersonalInformation() {
     axios
       .get("/personal")
       .then((res) => {
-        setUsername(res.data.username);
-        setName(res.data.name);
-        setEmail(res.data.email);
-        setBirthday(new Date(res.data.birthday));
-        setPhone(res.data.phone);
-        setGender(res.data.gender === 1 ? "Male" : res.data.gender === 0 ? "Female" : "Other");
+        setId(res.data.user.id);
+        setUsername(res.data.user.username);
+        setName(res.data.user.name);
+        setEmail(res.data.user.email);
+        setBirthday(new Date(res.data.user.birthday));
+        setPhone(res.data.user.phone);
+        setGender(res.data.user.gender === 1 ? "Male" : res.data.user.gender === 0 ? "Female" : "Other");
       })
       .catch((err) => {
         sbCtx.onSnackbar("Something wrong! Please try again!", "error");

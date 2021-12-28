@@ -27,7 +27,7 @@ function Header() {
   }
 
   return (
-    <AppBar position="static" color="success" sx={styles.header}>
+    <AppBar position="sticky" color="success" sx={styles.header}>
       <Toolbar>
         <Box sx={styles.boxLeft}>
           <Link to="/">
