@@ -25,7 +25,6 @@ function CreateComment(props) {
   const onSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      setContent("");
       setDisableButton(true);
       axios
         .post("/comments", {
@@ -37,6 +36,7 @@ function CreateComment(props) {
         .then((re) => {
           sbCtx.onSnackbar("Commented successfully!", "success");
           props.render();
+          setContent("");
           setDisableButton(false);
         })
         .catch((err) => {

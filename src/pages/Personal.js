@@ -10,7 +10,7 @@ function Personal() {
   }, []);
 
   return (
-    <Grid container spacing={3} sx={styles.grid}>
+    <Grid container spacing={2} sx={styles.grid}>
       <Grid item xs={3.5}>
         <PersonalInformation/>
       </Grid>

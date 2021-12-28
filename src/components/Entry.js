@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {Link} from "react-router-dom";
 import {
   Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Collapse, Dialog, DialogActions, DialogContent,
   Typography
@@ -14,8 +15,12 @@ function Entry(props) {
 
   return (
     <Card sx={styles.card}>
-      <CardHeader avatar={<Avatar src=""/>}
-                  title={<Typography sx={styles.title}>{props.data.name}</Typography>}
+      <CardHeader avatar={<Avatar src="" component={Link} to={`/user/${props.data.username}`}/>}
+                  title={
+                    <Typography sx={styles.title} component={Link} to={`/user/${props.data.username}`}>
+                      {props.data.name}
+                    </Typography>
+                  }
                   subheader={moment(props.data.created_at).fromNow()}/>
 
       <CardMedia component="img" image={props.data.image} height={400} alt="image"
@@ -63,7 +68,8 @@ const styles = {
     mr: 3
   },
   title: {
-    fontWeight: "bold"
+    fontWeight: "bold",
+    textDecoration: "none"
   },
   expandOn: {
     transform: "rotate(180deg)"

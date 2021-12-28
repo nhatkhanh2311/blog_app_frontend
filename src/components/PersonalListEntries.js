@@ -12,6 +12,8 @@ function PersonalListEntries() {
 
   const [fabVariant, setFabVariant] = useState("circular");
   const [dialog, setDialog] = useState(false);
+  const [userId, setUserId] = useState(0);
+  const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [data, setData] = useState([]);
   const [entries, setEntries] = useState([]);
@@ -32,6 +34,8 @@ function PersonalListEntries() {
     axios
       .get("/entries")
       .then((res) => {
+        setUserId(res.data.id);
+        setUsername(res.data.username);
         setName(res.data.name);
         setData(res.data.entries);
       })
@@ -48,9 +52,11 @@ function PersonalListEntries() {
         title: data.title,
         body: data.body,
         image: data.image,
-        name: name,
         created_at: data.created_at,
-        updated_at: data.updated_at
+        updated_at: data.updated_at,
+        user_id: userId,
+        username: username,
+        name: name
       });
     });
     setEntries(entries);
