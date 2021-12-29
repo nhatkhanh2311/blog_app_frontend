@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Redirect, Route, Switch, useParams} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {SignProvider} from "./stores/sign-context";
 import {SnackbarProvider} from "./stores/snackbar-context";
 
@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Personal from "./pages/Personal";
 import User from "./pages/User";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
 
             <Route path="/user/:username">
               <User/>
+            </Route>
+
+            <Route path="/search/:search">
+              <Search/>
             </Route>
           </Switch>
         </Router>

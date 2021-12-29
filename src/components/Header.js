@@ -13,6 +13,7 @@ function Header() {
   const signCtx = useContext(signContext);
 
   const [anchorMenu, setAnchorMenu] = useState(null);
+  const [search, setSearch] = useState("");
 
   const handleOpenMenu = (e) => setAnchorMenu(e.currentTarget);
   const handleCloseMenu = () => setAnchorMenu(null);
@@ -26,6 +27,11 @@ function Header() {
     window.location.reload();
   }
 
+  const onSearch = (e) => {
+    e.preventDefault();
+    history.push(`/search/${search}`);
+  }
+
   return (
     <AppBar position="sticky" color="success" sx={styles.header}>
       <Toolbar>
@@ -34,12 +40,15 @@ function Header() {
             <img src={logo} alt="logo"/>
           </Link>
 
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon/>
-            </SearchIconWrapper>
-            <StyledInputBase placeholder="Search..." inputProps={{"aria-label": "search"}}/>
-          </Search>
+          <form onSubmit={onSearch}>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon/>
+              </SearchIconWrapper>
+              <StyledInputBase placeholder="Search..." inputProps={{"aria-label": "search"}}
+                               onChange={(e) => setSearch(e.currentTarget.value)}/>
+            </Search>
+          </form>
         </Box>
 
         {!localStorage.getItem("token") ? (

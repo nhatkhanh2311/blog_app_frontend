@@ -1,23 +1,20 @@
 import React, {useEffect} from "react";
 import {Grid} from "@mui/material";
 
-import PersonalInformation from "../components/PersonalInformation";
-import PersonalListEntries from "../components/PersonalListEntries";
+import ListUsers from "../components/ListUsers";
 import FollowedBar from "../components/FollowedBar";
 
-function Personal() {
+function Search() {
   useEffect(() => {
-    document.title = "Personal - Blog App"
+    document.title = "Search - Blog App"
   }, []);
 
   return (
     <Grid container sx={styles.grid}>
-      <Grid item xs={3.5}>
-        <PersonalInformation/>
-      </Grid>
+      <Grid item xs={3.5}/>
 
       <Grid item xs={6}>
-        <PersonalListEntries/>
+        <ListUsers/>
       </Grid>
 
       <Grid item xs={2.5}>
@@ -27,7 +24,7 @@ function Personal() {
   );
 }
 
-export default Personal;
+export default Search;
 
 const styles = {
   grid: {

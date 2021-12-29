@@ -30,7 +30,7 @@ function User() {
           </Grid>
 
           <Grid item xs={2.5}>
-            <FollowedBar refresh={render}/>
+            {localStorage.getItem("token") && <FollowedBar refresh={render}/>}
           </Grid>
         </Grid>
       )}
