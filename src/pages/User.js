@@ -4,7 +4,7 @@ import {Grid} from "@mui/material";
 
 import UserInformation from "../components/UserInformation";
 import UserListEntries from "../components/UserListEntries";
-import FollowedBar from "../components/FollowedBar";
+import FollowBar from "../components/FollowBar";
 
 function User() {
   const {username} = useParams();
@@ -30,7 +30,7 @@ function User() {
           </Grid>
 
           <Grid item xs={2.5}>
-            {localStorage.getItem("token") && <FollowedBar refresh={render}/>}
+            {localStorage.getItem("token") && <FollowBar refresh={render}/>}
           </Grid>
         </Grid>
       )}

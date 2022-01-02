@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Grid} from "@mui/material";
 
 import HomeListEntries from "../components/HomeListEntries";
-import FollowedBar from "../components/FollowedBar";
+import FollowBar from "../components/FollowBar";
 
 function Home() {
   useEffect(() => {
@@ -18,7 +18,7 @@ function Home() {
       </Grid>
 
       <Grid item xs={2.5}>
-        {localStorage.getItem("token") && <FollowedBar/>}
+        {localStorage.getItem("token") && <FollowBar/>}
       </Grid>
     </Grid>
   );

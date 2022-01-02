@@ -3,7 +3,7 @@ import {Grid} from "@mui/material";
 
 import PersonalInformation from "../components/PersonalInformation";
 import PersonalListEntries from "../components/PersonalListEntries";
-import FollowedBar from "../components/FollowedBar";
+import FollowBar from "../components/FollowBar";
 
 function Personal() {
   useEffect(() => {
@@ -21,7 +21,7 @@ function Personal() {
       </Grid>
 
       <Grid item xs={2.5}>
-        {localStorage.getItem("token") && <FollowedBar/>}
+        {localStorage.getItem("token") && <FollowBar/>}
       </Grid>
     </Grid>
   );

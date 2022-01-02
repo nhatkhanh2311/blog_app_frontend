@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import axios from "../stores/axios";
 import snackbarContext from "../stores/snackbar-context";
 import {Avatar, Box, Button, Card, Grid, Typography} from "@mui/material";
-import {AddBox as AddBoxIcon} from "@mui/icons-material";
+import {AddBox as AddBoxIcon, Cancel as CancelIcon} from "@mui/icons-material";
 
 function UserInformation(props) {
   const sbCtx = useContext(snackbarContext);
@@ -15,11 +15,12 @@ function UserInformation(props) {
   const [birthday, setBirthday] = useState(new Date());
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
+  const [disable, setDisable] = useState(false);
   const [followed, setFollowed] = useState(false);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [username]);
 
   const getData = () => {
     axios
@@ -40,7 +41,7 @@ function UserInformation(props) {
 
   const follow = () => {
     if (localStorage.getItem("token")) {
-      setFollowed(true);
+      setDisable(true);
       axios
         .post("/follow", {
           followed_id: id
@@ -48,15 +49,35 @@ function UserInformation(props) {
         .then((res) => {
           sbCtx.onSnackbar("Followed successfully!", "success");
           props.render();
+          setDisable(false);
+          setFollowed(true);
         })
         .catch((err) => {
           sbCtx.onSnackbar("Something wrong! Please try again!", "error");
-          setFollowed(false);
+          setDisable(false);
         });
     }
     else {
       sbCtx.onSnackbar("You must sign in to follow!", "warning");
     }
+  }
+
+  const unfollow = () => {
+    setDisable(true);
+    axios
+      .post("/unfollow", {
+        followed_id: id
+      })
+      .then((res) => {
+        sbCtx.onSnackbar("Unfollowed successfully!", "success");
+        props.render();
+        setDisable(false);
+        setFollowed(false);
+      })
+      .catch((err) => {
+        sbCtx.onSnackbar("Something wrong! Please try again!", "error");
+        setDisable(false);
+      });
   }
 
   return (
@@ -70,8 +91,9 @@ function UserInformation(props) {
       </Typography>
 
       <Box sx={styles.follow}>
-        <Button disabled={followed} variant="contained" startIcon={<AddBoxIcon/>} onClick={follow}>
-          {followed ? "followed" : "follow"}
+        <Button disabled={disable} color={followed ? "error" : "primary"} variant="contained"
+                startIcon={followed ? <CancelIcon/> : <AddBoxIcon/>} onClick={followed ? unfollow : follow}>
+          {followed ? "unfollow" : "follow"}
         </Button>
       </Box>
 

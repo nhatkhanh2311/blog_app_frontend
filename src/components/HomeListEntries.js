@@ -1,13 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
 import axios from "../stores/axios";
 import snackbarContext from "../stores/snackbar-context";
-import {Container} from "@mui/material";
+import {Container, Pagination} from "@mui/material";
 import Entry from "./Entry";
 
 function HomeListEntries() {
+  const sbCtx = useContext(snackbarContext);
+
   const [data, setData] = useState([]);
   const [entries, setEntries] = useState([]);
-  const sbCtx = useContext(snackbarContext);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     getData();
@@ -45,13 +47,26 @@ function HomeListEntries() {
     setEntries(entries);
   }
 
+  const handlePage = (e, value) => {
+    setPage(value);
+    window.scrollTo(0, 0);
+  }
+
   return (
     <Container>
-      {entries.map((entry) => (
+      {entries.slice((page - 1) * 5, page * 5).map((entry) => (
         <Entry key={entry.id} data={entry}/>
       ))}
+
+      <Pagination count={Math.ceil(entries.length / 5)} page={page} sx={styles.pagination} onChange={handlePage}/>
     </Container>
   );
 }
 
 export default HomeListEntries;
+
+const styles = {
+  pagination: {
+    mb: 2
+  }
+}
