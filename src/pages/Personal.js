@@ -23,7 +23,7 @@ function Personal() {
       </Grid>
 
       <Grid item xs={2.5}>
-        {localStorage.getItem("token") && <FollowBar/>}
+        {localStorage.getItem("token") && <FollowBar refresh={render}/>}
       </Grid>
     </Grid>
   );

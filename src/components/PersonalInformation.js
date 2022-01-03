@@ -19,6 +19,7 @@ function PersonalInformation(props) {
   const [avatar, setAvatar] = useState("");
   const [upAvatar, setUpAvatar] = useState(null);
   const [dialog, setDialog] = useState(false);
+  const [disable, setDisable] = useState(false);
 
   useEffect(() => {
     getData();
@@ -44,6 +45,7 @@ function PersonalInformation(props) {
 
   const uploadAvatar = () => {
     if (upAvatar) {
+      setDisable(true);
       const formData = new FormData();
       formData.append("avatar", upAvatar[0]);
       axios
@@ -56,6 +58,7 @@ function PersonalInformation(props) {
         })
         .catch((err) => {
           sbCtx.onSnackbar("Something wrong! Please try again!", "error");
+          setDisable(false);
         });
     }
     else {
@@ -95,7 +98,7 @@ function PersonalInformation(props) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={uploadAvatar}>ok</Button>
+          <Button disabled={disable} onClick={uploadAvatar}>ok</Button>
           <Button onClick={() => setDialog(false)}>cancel</Button>
         </DialogActions>
       </Dialog>
