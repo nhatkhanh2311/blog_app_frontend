@@ -15,7 +15,7 @@ function Entry(props) {
 
   return (
     <Card sx={styles.card}>
-      <CardHeader avatar={<Avatar src="" component={Link} to={`/user/${props.data.username}`}/>}
+      <CardHeader avatar={<Avatar src={props.data.avatar} component={Link} to={`/user/${props.data.username}`}/>}
                   title={
                     <Typography sx={styles.title} component={Link} to={`/user/${props.data.username}`}>
                       {props.data.name}

@@ -7,20 +7,21 @@ import {Add as AddIcon} from "@mui/icons-material";
 import CreateEntry from "./CreateEntry";
 import Entry from "./Entry";
 
-function PersonalListEntries() {
+function PersonalListEntries(props) {
   const sbCtx = useContext(snackbarContext);
 
   const [fabVariant, setFabVariant] = useState("circular");
   const [dialog, setDialog] = useState(false);
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [data, setData] = useState([]);
   const [entries, setEntries] = useState([]);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [props.refresh]);
 
   useEffect(() => {
     editData();
@@ -36,6 +37,7 @@ function PersonalListEntries() {
       .then((res) => {
         setUsername(res.data.username);
         setName(res.data.name);
+        setAvatar(res.data.avatar);
         setData(res.data.entries);
       })
       .catch((err) => {
@@ -54,7 +56,8 @@ function PersonalListEntries() {
         created_at: data.created_at,
         updated_at: data.updated_at,
         username: username,
-        name: name
+        name: name,
+        avatar: avatar
       });
     });
     setEntries(entries);

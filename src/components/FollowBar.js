@@ -42,7 +42,7 @@ function FollowBar(props) {
         </Typography>
 
         {followings.map((user) => (
-          <CardHeader avatar={<Avatar src="" component={Link} to={`/user/${user.username}`}/>}
+          <CardHeader avatar={<Avatar src={user.avatar} component={Link} to={`/user/${user.username}`}/>}
                       title={
                         <Typography sx={styles.title} component={Link} to={`/user/${user.username}`}>
                           {user.name}
@@ -57,7 +57,7 @@ function FollowBar(props) {
         </Typography>
 
         {followers.map((user) => (
-          <CardHeader avatar={<Avatar src="" component={Link} to={`/user/${user.username}`}/>}
+          <CardHeader avatar={<Avatar src={user.avatar} component={Link} to={`/user/${user.username}`}/>}
                       title={
                         <Typography sx={styles.title} component={Link} to={`/user/${user.username}`}>
                           {user.name}

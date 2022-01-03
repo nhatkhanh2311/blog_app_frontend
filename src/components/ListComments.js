@@ -37,7 +37,7 @@ function ListComments(props) {
         <>
           <Divider/>
 
-          <CardHeader avatar={<Avatar sx={styles.avatar} src="" component={Link} to={`/user/${comment.username}`}/>}
+          <CardHeader avatar={<Avatar sx={styles.avatar} src={comment.avatar} component={Link} to={`/user/${comment.username}`}/>}
                       title={
                         <Typography sx={styles.title} component={Link} to={`/user/${comment.username}`}>
                           {comment.name}

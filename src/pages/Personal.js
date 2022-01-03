@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Grid} from "@mui/material";
 
 import PersonalInformation from "../components/PersonalInformation";
@@ -6,6 +6,8 @@ import PersonalListEntries from "../components/PersonalListEntries";
 import FollowBar from "../components/FollowBar";
 
 function Personal() {
+  const [render, setRender] = useState(false);
+
   useEffect(() => {
     document.title = "Personal - Blog App"
   }, []);
@@ -13,11 +15,11 @@ function Personal() {
   return (
     <Grid container sx={styles.grid}>
       <Grid item xs={3.5}>
-        <PersonalInformation/>
+        <PersonalInformation render={() => setRender(!render)}/>
       </Grid>
 
       <Grid item xs={6}>
-        <PersonalListEntries/>
+        <PersonalListEntries refresh={render}/>
       </Grid>
 
       <Grid item xs={2.5}>

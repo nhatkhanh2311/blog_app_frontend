@@ -41,7 +41,8 @@ function HomeListEntries() {
         created_at: data.created_at,
         updated_at: data.updated_at,
         username: data.username,
-        name: data.name
+        name: data.name,
+        avatar: data.avatar
       });
     });
     setEntries(entries);

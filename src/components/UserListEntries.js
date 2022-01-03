@@ -11,6 +11,7 @@ function UserListEntries() {
   const {username} = useParams();
 
   const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [data, setData] = useState([]);
   const [entries, setEntries] = useState([]);
   const [page, setPage] = useState(1);
@@ -28,6 +29,7 @@ function UserListEntries() {
       .get(`/entries/user?username=${username}`)
       .then((res) => {
         setName(res.data.name);
+        setAvatar(res.data.avatar);
         setData(res.data.entries);
       })
       .catch((err) => {
@@ -43,10 +45,10 @@ function UserListEntries() {
         title: data.title,
         body: data.body,
         image: data.image,
-        name: name,
         created_at: data.created_at,
         updated_at: data.updated_at,
-        user_id: data.user_id
+        name: name,
+        avatar: avatar
       });
     });
     setEntries(entries);

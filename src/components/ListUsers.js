@@ -29,7 +29,7 @@ function ListUsers() {
     <Container>
       {users.map((user) => (
         <Card sx={styles.card}>
-          <CardHeader avatar={<Avatar src="" component={Link} to={`/user/${user.username}`}/>}
+          <CardHeader avatar={<Avatar src={user.avatar} component={Link} to={`/user/${user.username}`}/>}
                       title={
                         <Typography sx={styles.title} component={Link} to={`/user/${user.username}`}>
                           {user.name}
