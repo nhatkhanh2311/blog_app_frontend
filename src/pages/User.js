@@ -13,7 +13,7 @@ function User() {
 
   useEffect(() => {
     document.title = `${username} - Blog App`
-  }, []);
+  }, [username]);
 
   return (
     <>
