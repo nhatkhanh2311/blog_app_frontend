@@ -20,6 +20,7 @@ function Header() {
 
   const toPersonal = () => {
     history.push("/personal");
+    handleCloseMenu();
   }
 
   const signOut = () => {

@@ -15,6 +15,7 @@ function UserInformation(props) {
   const [birthday, setBirthday] = useState(new Date());
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [disable, setDisable] = useState(false);
   const [followed, setFollowed] = useState(false);
 
@@ -32,6 +33,7 @@ function UserInformation(props) {
         setBirthday(new Date(res.data.user.birthday));
         setPhone(res.data.user.phone);
         setGender(res.data.user.gender === 1 ? "Male" : res.data.user.gender === 0 ? "Female" : "Other");
+        setAvatar(res.data.user.avatar);
         setFollowed(res.data.followed);
       })
       .catch((err) => {
@@ -83,7 +85,7 @@ function UserInformation(props) {
   return (
     <Card>
       <Box display="block">
-        <Avatar src="" sx={styles.avatar}/>
+        <Avatar src={avatar} sx={styles.avatar}/>
       </Box>
 
       <Typography textAlign="center" fontWeight="bold" fontSize={30} my={2}>
